@@ -1,40 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Property Collection</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" >
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
-        <script src="{{ asset('/js/jquery.validate.min.js')}}"></script>
-        <link rel="stylesheet" href="{{ asset('/css/custom.css')}}">
-    </head>
-    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-                    <a class="navbar-brand" href="{{url('/')}}">Property Collection</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="{{url('import-property')}}">Import Property</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+@extends('layout.master')
+
+@section('content')
+
         <div class="jumbotron text-center">
             <h2></h2>
             <p>Upload Property</p> 
@@ -104,69 +71,68 @@
             <br/>
             <div class="row"><div class="col-sm-3"></div><div class="col-sm-5 "><center><a href="{{url('/')}}">View property</a></center></div><div class="col-sm-4"></div></div>
         </div>  
-        <footer class="container-fluid text-center">
-        </footer>
+@stop
+
+@section('script')
         <script>
-                                        $(document).ready(function() {
-                                            $('#table').DataTable();
-                                        });
+            $(document).ready(function() {
+                $('#table').DataTable();
+            });
 
-                                        var validationRules = {
-                                            fileData: {
-                                                required: true
-                                            }
-                                        };
+            var validationRules = {
+                fileData: {
+                    required: true
+                }
+            };
 
-                                        $("#add-property").validate({
-                                            rules: validationRules,
-                                            messages: {
-                                                fileData: {
-                                                    required: "Csv file is required!",
-                                                }
-                                            }
-                                        });
+            $("#add-property").validate({
+                rules: validationRules,
+                messages: {
+                    fileData: {
+                        required: "Csv file is required!",
+                    }
+                }
+            });
 
-                                        function readURL(input_file)
-                                        {
+            function readURL(input_file)
+            {
 
-                                            if (input_file.files && input_file.files[0])
-                                            {
-                                                var reader = new FileReader();
-                                                reader.onload = function(e)
-                                                {
-                                                    var fileType = input_file.files[0];
-                                                    if (fileType.type === "application/vnd.ms-excel")
-                                                    {
-                                                        $("#err").text('');
-                                                        $("#submitData").removeAttr('disabled');
+                if (input_file.files && input_file.files[0])
+                {
+                    var reader = new FileReader();
+                    reader.onload = function(e)
+                    {
+                        var fileType = input_file.files[0];
+                        if (fileType.type === "application/vnd.ms-excel")
+                        {
+                            $("#err").text('');
+                            $("#submitData").removeAttr('disabled');
 
-                                                        if (input_file.files[0].size > 6000000)
-                                                        {
-                                                            $("#err").text("File size is too large");
-                                                            $("#submitData").attr('disabled', 'disabled');
-                                                            $("#fileData").val('');
-                                                        }
-                                                        else
-                                                        {
-                                                            //If want to perform anything
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        $("#err").text("Only csv type format allow!");
-                                                        $("#submitData").attr('disabled', 'disabled');
-                                                        $("#fileData").val('');
-                                                    }
-                                                };
-                                                reader.readAsDataURL(input_file.files[0]);
-                                            }
-                                            else
-                                            {
+                            if (input_file.files[0].size > 6000000)
+                            {
+                                $("#err").text("File size is too large");
+                                $("#submitData").attr('disabled', 'disabled');
+                                $("#fileData").val('');
+                            }
+                            else
+                            {
+                                //If want to perform anything
+                            }
+                        }
+                        else
+                        {
+                            $("#err").text("Only csv type format allow!");
+                            $("#submitData").attr('disabled', 'disabled');
+                            $("#fileData").val('');
+                        }
+                    };
+                    reader.readAsDataURL(input_file.files[0]);
+                }
+                else
+                {
 
-                                            }
-                                        }
+                }
+            }
 
         </script>
-        @yield('script')
-    </body>
-</html>
+@stop

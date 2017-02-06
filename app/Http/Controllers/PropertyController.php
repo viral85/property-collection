@@ -26,7 +26,7 @@ class PropertyController extends Controller {
     public function index() {
         $properties = $this->PropertyRepository->getAllProperty();
 
-        return view('master', compact('properties'));
+        return view('search', compact('properties'));
     }
 
     /**
