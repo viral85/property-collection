@@ -27,7 +27,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
     {
     	$query = DB::table(config::get('databaseconstants.TBL_PROPERTY') ." AS tbl_property");
     	
-    	$query->select('tbl_property.id');
+    	$query->select('tbl_property.id','name', 'price', 'bedroom', 'bathroom', 'store', 'garage');
 
     	if (isset($attributes['name']) && $attributes['name'] != "") {
             $query->whereRaw('lower(tbl_property.name) LIKE lower(?)', ['%'.$attributes['name'].'%']);
@@ -67,9 +67,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
 
         }
         
-        $propertyIds = $query->distinct()->lists('id');
-
-        $property = Property::whereIn('id', $propertyIds)->get(['name', 'price', 'bedroom', 'bathroom', 'store', 'garage']);
+		$property = $query->get();
         
         return $property;
     }
