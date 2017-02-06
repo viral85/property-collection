@@ -30,7 +30,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
     	$query->select('tbl_property.id','name', 'price', 'bedroom', 'bathroom', 'store', 'garage');
 
     	if (isset($attributes['name']) && $attributes['name'] != "") {
-            $query->whereRaw('lower(tbl_property.name) LIKE lower(?)', ['%'.$attributes['name'].'%']);
+            $query->where('tbl_property.name','like', '%'.$attributes['name'].'%');
         }
 
         if (isset($attributes['bedroom']) && is_numeric($attributes['bedroom']) && $attributes['bedroom'] > 0) {
