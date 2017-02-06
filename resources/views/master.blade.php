@@ -168,9 +168,9 @@
                             var objReturn = JSON.parse(response);
                             $(".outer").hide();
                             $("#searchSubmit").removeAttr("disabled", 'disabled');
-                            if(objReturn.status == 1 && objReturn.data.length > 0){
+                            //if(objReturn.status == 1 && objReturn.data.length > 0){
                             	initialize(objReturn.data);
-                            }
+                            //}
                         }
                     });
                 });
