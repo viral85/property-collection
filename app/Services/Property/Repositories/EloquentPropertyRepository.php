@@ -46,7 +46,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
         }
 
         if (isset($attributes['garage']) && is_numeric($attributes['garage']) && $attributes['garage'] > 0) {
-            $query->where('tbl_property.bedroom', '=', $attributes['bedroom']);
+            $query->where('tbl_property.garage', '=', $attributes['garage']);
         }
 
         $min_value = (isset($attributes['min_price']) && is_numeric($attributes['min_price']) && $attributes['min_price'] > 0) ? $attributes['min_price'] : "";
